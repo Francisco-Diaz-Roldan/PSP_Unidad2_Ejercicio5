@@ -61,5 +61,12 @@ public class Nodo extends Thread {
             mezcla(lista, nodoIzquierda.getLista(), nodoDerecha.getLista());
         }
     }
+
+    public static void mostrarLista(List<Integer> lista) {
+        for (Integer elemento : lista) {
+            System.out.print(elemento + " ");
+        }
+        System.out.println();
+    }
 }
 
