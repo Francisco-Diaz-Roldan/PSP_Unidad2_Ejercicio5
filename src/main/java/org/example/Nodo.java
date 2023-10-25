@@ -11,45 +11,29 @@ public class Nodo extends Thread {
         this.lista = lista;
     }
 
-    private void mezcla(List<Integer> lista, List<Integer> l1, List<Integer> l2) {
-        int posicionL1 = 0, posicionL2 = 0;
-        while (posicionL1 < l1.size() && posicionL2 < l2.size()) {
-            if (l1.get(posicionL1) <= l2.get(posicionL2)) {
-                lista.add(l1.get(posicionL1));
-                posicionL1++;
-            } else {
-                lista.add(l2.get(posicionL2));
-                posicionL2++;
-            }
-        }
-        while (posicionL1 < l1.size()) {
-            lista.add(l1.get(posicionL1));
-            posicionL1++;
-        }
-        while (posicionL2 < l2.size()) {
-            lista.add(l2.get(posicionL2));
-            posicionL2++;
-        }
-    }
-
     public List<Integer> getLista() {
         return lista;
     }
 
-    public static void main(String[] args) {
-        List<Integer> lista = new ArrayList<>();
-        addRandom(lista);
-        Nodo nodoRaiz = new Nodo(lista);
-        nodoRaiz.start();
-
-        try {
-            nodoRaiz.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    private void mezcla(List<Integer> lista, List<Integer> l1, List<Integer> l2) {
+        int numPosicionL1 = 0, numPosicionL2 = 0;
+        while (numPosicionL1 < l1.size() && numPosicionL2 < l2.size()) {
+            if (l1.get(numPosicionL1) <= l2.get(numPosicionL2)) {
+                lista.add(l1.get(numPosicionL1));
+                numPosicionL1++;
+            } else {
+                lista.add(l2.get(numPosicionL2));
+                numPosicionL2++;
+            }
         }
-
-        System.out.println("Lista Ordenada:");
-        Nodo.mostrarLista(nodoRaiz.getLista());
+        while (numPosicionL1 < l1.size()) {
+            lista.add(l1.get(numPosicionL1));
+            numPosicionL1++;
+        }
+        while (numPosicionL2 < l2.size()) {
+            lista.add(l2.get(numPosicionL2));
+            numPosicionL2++;
+        }
     }
 
     @Override
@@ -76,20 +60,6 @@ public class Nodo extends Thread {
             lista.clear();
             mezcla(lista, nodoIzquierda.getLista(), nodoDerecha.getLista());
         }
-    }
-
-    private static void addRandom(List<Integer> lista) {
-        Random random = new Random();
-        for (int i = 0; i < 10; i++) {
-            lista.add(random.nextInt(100));
-        }
-    }
-
-    public static void mostrarLista(List<Integer> lista) {
-        for (Integer elemento : lista) {
-            System.out.print(elemento + " ");
-        }
-        System.out.println();
     }
 }
 
